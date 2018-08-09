@@ -4,7 +4,7 @@ This repository outlines how 18S rDNA metabarcodes are processed by Teresita M. 
 
 The pipeline begins with raw Illumina MiSeq fastq.gz files with paired-end reads.  Reads are paired.  Primers are trimmed.  All the samples are pooled for a global analysis.  Reads are dereplicated and denoised producing a reference set of exact sequence variants (ESVs).  These ESVs are taxonomically assigned using the 18S reference set available from https://github.com/terrimporter/18SClassifier and is used with the RDP Classifier (Wang et al., 2007) available from https://sourceforge.net/projects/rdp-classifier/ .  The reference set is based on the SILVA 132 SSURef Nr99 dataset (Preuss et al., 2007).
 
-This data flow has been developed in a modular fashion for easier updating as methods change and improve over time.  It will be updated on a regular basis so check for the latest version at XXX.
+This data flow has been developed in a modular fashion for easier updating as methods change and improve over time.  It will be updated on a regular basis so check for the latest version at https://github.com/terrimporter/SCVUS_18S_metabarcode_pipeline/releases
 
 ## Outline
 
