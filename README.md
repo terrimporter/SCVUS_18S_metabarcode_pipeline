@@ -20,16 +20,10 @@ This data flow has been developed in a modular fashion for easier updating as me
 
 ## Part I - Link to raw files
 
-This pipeline is meant to process Illumina paired-end reads from COI metabarcoding.  To save space in my directory, I create symbolic links to the raw .gz files.  The command linkfiles calls the script link_files.sh
+This pipeline is meant to process Illumina paired-end reads from 18S rDNA metabarcoding.  To save space in my directory, I create symbolic links to the raw .gz files.  The command linkfiles calls the script link_files.sh
 
 ```linux
 linkfiles
-```
-
-If necessary, I concatenate results from the same samples from 2 runs.  This script expects the read files to be named according to the usual GRDI naming convention.
-
-```linux
-perl concatenate_gz.plx
 ```
 
 ## Part II - Forward and reverse read number check
@@ -129,8 +123,6 @@ Edgar, R. C. (2016). UNOISE2: improved error-correction for Illumina 16S and ITS
 Gergely, S. (2018, January). Perl-rename. Retrieved from https://github.com/subogero/rename  
 
 Martin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet. Journal, 17(1), pp–10.  Available from: http://cutadapt.readthedocs.io/en/stable/index.html
-
-Porter, T. M., & Hajibabaei, M. (2018). Automated high throughput animal CO1 metabarcode classification. Scientific Reports, 8, 4226. 
 
 Pruesse E, Quast C, Knittel K, Fuchs BM, Ludwig WG, Peplies J, Glöckner FO (2007) SILVA: a comprehensive online resource for quality checked and aligned ribosomal RNA sequence data compatible with ARB. Nucl. Acids Res. 35:7188-7196
 
