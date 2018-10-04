@@ -84,7 +84,7 @@ I make taxonomic assignments using the RDP Classifier (Wang et al., 2007).  I us
 
 ```linux
 java -Xmx8g -jar /path/to/rdp_classifier_2.12/dist/classifier.jar classify -t /path/to/rRNAClassifier.properties -o cat.denoised.out cat.denoised
-perl add_abundance_to_rdp_out3.plx cat.denoised.table cat.denoised.out
+perl add_abundance_to_rdp_out4.plx cat.denoised.table cat.denoised.out
 ```
 
 To reduce the chances of making false positive assignments, I use the minimum recommended bootstrap support cutoffs described for v3.0 on github.  Use your own judgement as to whether these should be increased according to how well represented your target taxa are in the reference set.  This can be determined by exploring the original reference files used to train the classifier that are also available on github.
