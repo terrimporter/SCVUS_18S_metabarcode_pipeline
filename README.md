@@ -80,11 +80,12 @@ usearch10 -usearch_global cat.fasta -db cat.denoised -strand plus -id 1.0 -otuta
 
 ## Part VII - Taxonomic assignment
 
-I make taxonomic assignments using the RDP Classifier (Wang et al., 2007).  I use this with the 18S v3.1 reference set ready to be used with the classifier available from https://github.com/terrimporter/18SClassifier .  This step can take a while depending on the filesize so I like to submit this as a job on its own or using Linux screen so that I can safely detach the session while it is running.  I like to map read number from the ESV/OTU table to the taxonomic assignments using the add_abundance_to_rdp_out4.plx script.
+I make taxonomic assignments using the RDP Classifier (Wang et al., 2007).  I use this with the 18S v3.2 reference set ready to be used with the classifier available from https://github.com/terrimporter/18SClassifier .  This step can take a while depending on the filesize so I like to submit this as a job on its own or using Linux screen so that I can safely detach the session while it is running.  I like to map read number from the ESV/OTU table to the taxonomic assignments using the add_abundance_to_rdp_out4.plx script.  I also add the primer as a prefix for each OTUid. This is important to distinguish among OTUs with the same ids but from different primers and/or markers.
 
 ```linux
 java -Xmx8g -jar /path/to/rdp_classifier_2.12/dist/classifier.jar classify -t /path/to/rRNAClassifier.properties -o cat.denoised.out cat.denoised
 perl add_abundance_to_rdp_out4.plx cat.denoised.table cat.denoised.out
+vi -c "%s/^/primer_/g" -c "wq" rdp.cat.updated.csv
 ```
 
 To reduce the chances of making false positive assignments, I use the minimum recommended bootstrap support cutoffs described for v3.0 on github.  Use your own judgement as to whether these should be increased according to how well represented your target taxa are in the reference set.  This can be determined by exploring the original reference files used to train the classifier that are also available on github.
