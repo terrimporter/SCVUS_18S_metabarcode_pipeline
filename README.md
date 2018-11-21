@@ -37,7 +37,7 @@ gz_stats R2.fz.gz > R2.stats
 
 ## Part III - Read pairing
 
-I pair forward and reverse reads using the SEQPREP program available at https://github.com/jstjohn/SeqPrep .  I use the default settings and specify a minimum quality of Phred 20 at the ends of the reads and an overlap of at least 25 bp.  The command pair runs the script runseqprep_gz.sh .  I check the read stats by running the gz_stats command described in Part II.
+Assuming your forward and reverse reads are expected to overlap, then I pair them using the SEQPREP program available at https://github.com/jstjohn/SeqPrep .  I use the default settings and specify a minimum quality of Phred 20 at the ends of the reads and an overlap of at least 25 bp.  The command pair runs the script runseqprep_gz.sh .  I check the read stats by running the gz_stats command described in Part II.  If your reads do not overlap, then I proceed to Part IV to trim the primers.
 
 ```linux
 pair _R1.fq.gz _R2.fq.gz
@@ -46,7 +46,7 @@ gz_stats gz > paired.stats
 
 ## Part IV - Primer trimming
 
-I remove primers using the program CUTADAPTv1.13 (Martin, 2011).  This is a two-step process that first removes forward primers, takes the output, then removes the reverse primers from paired reads.  I run this command with GNU parallel using as many cores as possible (Tang, 2011).  The forward primer is trimmed with the -g flag.  I use default settings but require a minimum length after trimming of at least 150 bp, minimum read quality of Phred 20 at the ends of the sequences, and I allow a maximum of 3 N's.  I get read stats by running the gz_stats command described in Part II.  The reverse primer is inidicated with the -a flag and the primer sequence should be reverse-complemented when analyzing paired-reads.  CUTADAPT will automatically detect compressed fastq.gz files for reading and will convert these to .fasta.gz files based on the file extensions provided.  I get read stats by running the fasta_gz_stats command that calls the run_bash_fasta_gz_stats.sh script.  Therein the stats3 command links to the fasta_gz_stats.plx script.
+I remove primers using the program CUTADAPTv1.14 (Martin, 2011).  This is a two-step process that first removes forward primers, takes the output, then removes the reverse primers from paired reads.  I run this command with GNU parallel using as many cores as possible (Tang, 2011).  The forward primer is trimmed with the -g flag.  I use default settings but require a minimum length after trimming of at least 150 bp, minimum read quality of Phred 20 at the ends of the sequences, and I allow a maximum of 3 N's.  I get read stats by running the gz_stats command described in Part II.  The reverse primer is inidicated with the -a flag and the primer sequence should be reverse-complemented when analyzing paired-reads.  CUTADAPT will automatically detect compressed fastq.gz files for reading and will convert these to .fasta.gz files based on the file extensions provided.  I get read stats by running the fasta_gz_stats command that calls the run_bash_fasta_gz_stats.sh script.  Therein the stats3 command links to the fasta_gz_stats.plx script.
 
 ```linux
 ls | grep gz | parallel -j 20 "cutadapt -g <INSERT FOWARD PRIMER SEQ>  -m 150 -q 20,20 --max-n=3 --discard-untrimmed -o {}.Ftrimmed.fastq.gz {}"
@@ -80,7 +80,7 @@ usearch10 -usearch_global cat.fasta -db cat.denoised -strand plus -id 1.0 -otuta
 
 ## Part VII - Taxonomic assignment
 
-I make taxonomic assignments using the RDP Classifier (Wang et al., 2007).  I use this with the 18S reference set ready to be used with the classifier available from https://github.com/terrimporter/18SClassifier .  This step can take a while depending on the filesize so I like to submit this as a job on its own or using Linux screen so that I can safely detach the session while it is running.  I like to map read number from the ESV/OTU table to the taxonomic assignments using the add_abundance_to_rdp_out3.plx script.
+I make taxonomic assignments using the RDP Classifier (Wang et al., 2007).  I use this with the 18S v3.1 reference set ready to be used with the classifier available from https://github.com/terrimporter/18SClassifier .  This step can take a while depending on the filesize so I like to submit this as a job on its own or using Linux screen so that I can safely detach the session while it is running.  I like to map read number from the ESV/OTU table to the taxonomic assignments using the add_abundance_to_rdp_out4.plx script.
 
 ```linux
 java -Xmx8g -jar /path/to/rdp_classifier_2.12/dist/classifier.jar classify -t /path/to/rRNAClassifier.properties -o cat.denoised.out cat.denoised
