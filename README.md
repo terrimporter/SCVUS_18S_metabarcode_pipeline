@@ -57,7 +57,7 @@ fasta_gz_stats gz > Rtrimmed.stats
 
 ## Part V - Dereplication
 
-I prepare the files for dereplication by adding sample names parsed from the filenames to the fasta headers using the rename_all_fastas command that calls the run_rename_fasta.sh.  Therein the rename_fasta command calls the rename_fasta_gzip.plx script.  The results are concatenated and compressed.  The outfile is cat.fasta.gz .  I change all dashes with underscores in the fasta files using vi.  This large file is dereplicated with VSEARCHv2.5.0 (Rognes et al., 2016) available at https://github.com/torognes/vsearch .  I use the default settings with the --sizein --sizeout flags to track the number of reads in each cluster.  I get read stats on the unique sequences using the stats_uniques command that calls the run_fastastats_parallel_uniques.sh script.  Therein the stats command links to fasta_stats_parallel.plx .  I count the total number of reads that were processed using the read_count_uniques command that calls the get_read_counts_uniques.sh script.
+I prepare the files for dereplication by adding sample names parsed from the filenames to the fasta headers using the rename_all_fastas command that calls the run_rename_fasta.sh.  Therein the rename_fasta command calls the rename_fasta_gzip.plx script.  The results are concatenated and compressed.  The outfile is cat.fasta.gz .  I change all dashes with underscores in the fasta files using vi.  This large file is dereplicated with VSEARCHv2.10.4 (Rognes et al., 2016) available at https://github.com/torognes/vsearch .  I use the default settings with the --sizein --sizeout flags to track the number of reads in each cluster.  I get read stats on the unique sequences using the stats_uniques command that calls the run_fastastats_parallel_uniques.sh script.  Therein the stats command links to fasta_stats_parallel.plx .  I count the total number of reads that were processed using the read_count_uniques command that calls the get_read_counts_uniques.sh script.
 
 ```linux
 rename_all_fastas Rtrimmed.fasta.gz
@@ -75,7 +75,7 @@ I denoise the reads using USEARCH v10.0.240 with the UNOISE3 algorithm (Edgar, 2
 usearch10 -unoise3 cat.uniques -zotus cat.denoised -minsize 3 > log
 vi -c "%s/>Zotu/>Otu/g" -c "wq" cat.denoised
 stats_denoised
-usearch10 -usearch_global cat.fasta -db cat.denoised -strand plus -id 1.0 -otutabout cat.denoised.table
+vsearch --usearch_global cat.fasta.gz --db cat.denoised --id 1.0 --otutabout cat.denoised.table
 ```
 
 ## Part VII - Taxonomic assignment
@@ -85,7 +85,7 @@ I make taxonomic assignments using the RDP Classifier (Wang et al., 2007).  I us
 ```linux
 java -Xmx8g -jar /path/to/rdp_classifier_2.12/dist/classifier.jar classify -t /path/to/rRNAClassifier.properties -o cat.denoised.out cat.denoised
 perl add_abundance_to_rdp_out4.plx cat.denoised.table cat.denoised.out
-vi -c "%s/^/primer_/g" -c "wq" rdp.cat.updated.csv
+vi -c "%s/^/18S_/g" -c "wq" rdp.cat.updated.csv
 ```
 
 To reduce the chances of making false positive assignments, I use the minimum recommended bootstrap support cutoffs described for v3.0 on github.  Use your own judgement as to whether these should be increased according to how well represented your target taxa are in the reference set.  This can be determined by exploring the original reference files used to train the classifier that are also available on github.
