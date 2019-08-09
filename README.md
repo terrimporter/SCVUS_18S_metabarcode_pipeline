@@ -94,7 +94,7 @@ To reduce the chances of making false positive assignments, I use the minimum re
 
 This pipeline above is recommended when the memory-limit during the denoising step with 32-bit USEARCH is not exceeded.  If you get a memory-limit error from USEARCH during the denoising step, it is better to go back to dereplicate and denoise reads in smaller batches, run by run.  Each set of denoised reads can then be combined into a single file, dereplicated, then used to create the OTU table as described above.  See image below: 
 
-![]images/BioinformaticOverview.pdf 
+![](images/BioinformaticOverview.pdf)
 
 Shell scripts are written for Bash.  Other scripts are written in Perl and may require additional libraries that are indicated at the top of the script when needed and these can be obtained from CPAN.  I have provided links throughout the README on where to obtain additional data processing tools such as GNU parallel (Tang, 2011) and Perl-rename (Gergely, 2018).
 
