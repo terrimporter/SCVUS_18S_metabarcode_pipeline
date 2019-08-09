@@ -134,9 +134,9 @@ If you get a memory usage error when using 32-bit USEARCH, it may be better to g
 
 1. Process reads as outlined in parts I-IV.  
 
-2. For each sequencing run, create a text file that contains a list of all the R1 and R2 filenames.  Call these files run1.txt, run2.txt, etc.
+2. For each sequencing run, create a text file that contains a list of all the forward and reverse read filenames.
 
-3.  Move the text files into the directory that contains the cat.fasta.gz file.
+3.  Move these text files into the directory that contains the cat.fasta.gz file.
 
 4. Create a summary file that lists the text files from above. 
 
