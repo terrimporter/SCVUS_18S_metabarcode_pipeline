@@ -16,6 +16,7 @@ This data flow has been developed in a modular fashion for easier updating as me
 [Part VI - Denoising](#part-vi---denoising)  
 [Part VII - Taxonomic assignment](#part-vii---taxonomic-assignment)  
 [Implementation notes](#implementation-notes)  
+[Modified pipeline for processing sequences from multiple runs](#modified-pipeline-for-processing-sequences-from-multiple-runs)  
 [References](#references)  
 
 ## Part I - Link to raw files
@@ -62,19 +63,25 @@ I prepare the files for dereplication by adding sample names parsed from the fil
 ```linux
 rename_all_fastas Rtrimmed.fasta.gz
 vi -c "%s/-/_/g" -c "wq" cat.fasta.gz
+
+# dereplicate
 vsearch --threads 10 --derep_fulllength cat.fasta.gz --output cat.uniques --sizein --sizeout
+
 stats_uniques
 read_count_uniques
 ```
 
 ## Part VI - Denoising
 
-I denoise the reads using USEARCH v10.0.240 with the UNOISE3 algorithm (Edgar, 2016).  With this program, denoising involves correcting sequences with putative sequencing errors, removing PhiX and putative chimeric sequences, as well as low frequency reads (just singletons and doubletons here).  This step can take quite a while to run for large files and I like to submit as a job on its own or use linux screen when working interactively so that I can detach the screen.  If you get a memory-limit error with the 32-bit USEARCH version, then I recommend processing reads in smaller batches, run by run (see Implementation Notes below).  To account for a bug in USEARCH10 the automatically generated 'Zotu' in the FASTA header needs to be changed to 'Otu' for the ESV/OTU table to be generated correctly in the next step.  I get ESV stats using stats_denoised that links to run_fastastats_parallel_denoised.sh.  Therein the command stats links to fasta_stats_parallel.plx .  I generate an ESV/OTU table by mapping the primer-trimmed reads in cat.fasta to the ESVs in cat.denoised using an identity cutoff of 1.0 .
+I denoise the reads using USEARCH v10.0.240 with the UNOISE3 algorithm (Edgar, 2016).  With this program, denoising involves correcting sequences with putative sequencing errors, removing PhiX and putative chimeric sequences, as well as low frequency reads (just singletons and doubletons here).  This step can take quite a while to run for large files and I like to submit as a job on its own or use linux screen when working interactively so that I can detach the screen.  If you get a memory-limit error with the 32-bit USEARCH version, then I recommend processing reads in smaller batches, run by run (see Modified pipeline below).  To account for a bug in USEARCH10 the automatically generated 'Zotu' in the FASTA header needs to be changed to 'Otu' for the ESV/OTU table to be generated correctly in the next step.  I get ESV stats using stats_denoised that links to run_fastastats_parallel_denoised.sh.  Therein the command stats links to fasta_stats_parallel.plx .  I generate an ESV/OTU table by mapping the primer-trimmed reads in cat.fasta to the ESVs in cat.denoised using an identity cutoff of 1.0 .
 
 ```linux
+# denoise
 usearch10 -unoise3 cat.uniques -zotus cat.denoised -minsize 3 > log
 vi -c "%s/>Zotu/>Otu/g" -c "wq" cat.denoised
 stats_denoised
+
+# create an ESV table
 vsearch --usearch_global cat.fasta.gz --db cat.denoised --id 1.0 --otutabout cat.denoised.table
 ```
 
@@ -92,9 +99,7 @@ To reduce the chances of making false positive assignments, I use the minimum re
 
 ## Implementation notes
 
-This pipeline above is recommended when the memory-limit during the denoising step with 32-bit USEARCH is not exceeded.  If you get a memory-limit error from USEARCH during the denoising step, it is better to go back to dereplicate and denoise reads in smaller batches, run by run.  Each set of denoised reads can then be combined into a single file, dereplicated, then used to create the OTU table as described above.  See image below: 
-
-![](images/BioinformaticOverview.pdf)
+This pipeline above is recommended when the memory-limit during the denoising step with 32-bit USEARCH is not exceeded.  If you get a memory-limit error from USEARCH during the denoising step, see modified pipeline below.  
 
 Shell scripts are written for Bash.  Other scripts are written in Perl and may require additional libraries that are indicated at the top of the script when needed and these can be obtained from CPAN.  I have provided links throughout the README on where to obtain additional data processing tools such as GNU parallel (Tang, 2011) and Perl-rename (Gergely, 2018).
 
@@ -121,6 +126,51 @@ ln -s /path/to/target/directory shortcutName
 ln -s /path/to/script/script.sh commandName
 ```
 
+## Modified pipeline for processing sequences from multiple runs
+
+If you get a memory usage error when using 32-bit USEARCH, it may be better to go back to dereplicate and denoise reads in smaller batches, run by run.  Each set of denoised reads can then be combined into a single file, dereplicated, then used to create the OTU table as described above.  See image below: 1) The usual bioinformatic pipeline described in detail above, 2) Modified pipeline to process reads by run to keep memory usage during denoising down.
+
+![](images/BioinformaticOverview_100.png)
+
+1. Process reads as outlined in parts I-IV.  
+
+2. Go back to one of the directories that contains your raw read files, one run at a time.  For each sequencing run, create a text file that contains a list of all the forward and reverse read filenames.
+
+```linux
+cd run1
+ls | grep gz > run1.txt
+```
+
+3.  Move these text files into the directory that contains the cat.fasta.gz file.
+
+4. Create a summary file that lists the text files from above. 
+
+```linux
+ls | grep txt > run.list
+```
+
+5. Run the script that will separate cat.fasta.gz by run.
+
+```linux
+perl sepByRun.plx cat.fasta.gz run.list
+```
+
+6. Compress the newly generated files.
+
+```linux
+gzip run*.cat.fasta
+```
+
+7. Proceed to dereplicate and denoise each individual runX.cat.fasta.gz file, see parts V and VI.
+
+8. Concatenate the runX.cat.denoised files into a single file.  
+
+```linux
+ls | grep denoised | parallel -j 1 "cat {} >> runs.cat.denoised"
+```
+
+9. Dereplicate the runs.cat.denoised file, see part V.  This file, and cat.fasta.gz containing all the primr-trimmed reads, can then be used to generate the OTU table, see step VI.
+
 ## References
 
 Edgar, R. C. (2016). UNOISE2: improved error-correction for Illumina 16S and ITS amplicon sequencing. BioRxiv. doi:10.1101/081257 .  Available from: https://www.drive5.com/ 
@@ -143,4 +193,4 @@ Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Cl
 
 I would like to acknowedge funding from the Canadian government through the Genomics Research and Development Initiative (GRDI) EcoBiomics project.
 
-Last updated: August 9, 2018
+Last updated: August 9, 2019
