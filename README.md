@@ -73,7 +73,7 @@ read_count_uniques
 
 ## Part VI - Denoising
 
-I denoise the reads using USEARCH v10.0.240 with the UNOISE3 algorithm (Edgar, 2016).  With this program, denoising involves correcting sequences with putative sequencing errors, removing PhiX and putative chimeric sequences, as well as low frequency reads (just singletons and doubletons here).  This step can take quite a while to run for large files and I like to submit as a job on its own or use linux screen when working interactively so that I can detach the screen.  If you get a memory-limit error with the 32-bit USEARCH version, then I recommend processing reads in smaller batches, run by run (see Implementation Notes below).  To account for a bug in USEARCH10 the automatically generated 'Zotu' in the FASTA header needs to be changed to 'Otu' for the ESV/OTU table to be generated correctly in the next step.  I get ESV stats using stats_denoised that links to run_fastastats_parallel_denoised.sh.  Therein the command stats links to fasta_stats_parallel.plx .  I generate an ESV/OTU table by mapping the primer-trimmed reads in cat.fasta to the ESVs in cat.denoised using an identity cutoff of 1.0 .
+I denoise the reads using USEARCH v10.0.240 with the UNOISE3 algorithm (Edgar, 2016).  With this program, denoising involves correcting sequences with putative sequencing errors, removing PhiX and putative chimeric sequences, as well as low frequency reads (just singletons and doubletons here).  This step can take quite a while to run for large files and I like to submit as a job on its own or use linux screen when working interactively so that I can detach the screen.  If you get a memory-limit error with the 32-bit USEARCH version, then I recommend processing reads in smaller batches, run by run (see Modified pipeline below).  To account for a bug in USEARCH10 the automatically generated 'Zotu' in the FASTA header needs to be changed to 'Otu' for the ESV/OTU table to be generated correctly in the next step.  I get ESV stats using stats_denoised that links to run_fastastats_parallel_denoised.sh.  Therein the command stats links to fasta_stats_parallel.plx .  I generate an ESV/OTU table by mapping the primer-trimmed reads in cat.fasta to the ESVs in cat.denoised using an identity cutoff of 1.0 .
 
 ```linux
 # denoise
@@ -99,7 +99,7 @@ To reduce the chances of making false positive assignments, I use the minimum re
 
 ## Implementation notes
 
-This pipeline above is recommended when the memory-limit during the denoising step with 32-bit USEARCH is not exceeded.  If you get a memory-limit error from USEARCH during the denoising step, see section below for a modified pipeline.  
+This pipeline above is recommended when the memory-limit during the denoising step with 32-bit USEARCH is not exceeded.  If you get a memory-limit error from USEARCH during the denoising step, see modified pipeline below.  
 
 Shell scripts are written for Bash.  Other scripts are written in Perl and may require additional libraries that are indicated at the top of the script when needed and these can be obtained from CPAN.  I have provided links throughout the README on where to obtain additional data processing tools such as GNU parallel (Tang, 2011) and Perl-rename (Gergely, 2018).
 
