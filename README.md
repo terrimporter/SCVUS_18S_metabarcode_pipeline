@@ -16,7 +16,7 @@ This data flow has been developed in a modular fashion for easier updating as me
 [Part VI - Denoising](#part-vi---denoising)  
 [Part VII - Taxonomic assignment](#part-vii---taxonomic-assignment)  
 [Implementation notes](#implementation-notes)  
-[Modified pipeline for processing sequences from multiple runs](#modified-pipeline-for-processing-sequences-from-multiple-runs)
+[Modified pipeline for processing sequences from multiple runs](#modified-pipeline-for-processing-sequences-from-multiple-runs) 
 [References](#references)  
 
 ## Part I - Link to raw files
