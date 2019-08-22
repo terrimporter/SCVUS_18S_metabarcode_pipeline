@@ -18,6 +18,30 @@ This data flow has been developed using a conda environment and snakemake pipeli
 
 ## Standard pipeline
 
+### Overview of the standard pipeline
+
+If you are comfortable reading code, read through the snakefile to see how the pipeline runs, and which programs and versions are used.
+
+Here is a brief overview:
+
+Raw paired-end reads are merged using SEQPREP v1.3.2 from bioconda (St. John, 2016).  This step looks for a minimum Phred quality score of 20 in the overlap region, requires at least 25bp overlap.
+
+Primers are trimmed in two steps using CUTADAPT v2.4 from bioconda (Martin, 2011).  This step looks for a minimum Phred quality score of at least 20 at the ends, forward primer is trimmed first, no more than 3 N's allowed, trimmed reads need to be at least 150 bp, untrimmed reads are discarded.  The output from the first step, is used as in put for the second step.  This step looks for a minimum Phred quality score of at least 20 at the ends, the reverse primer is trimmed, no more than 3 N's allowed, trimmed reads need to be at least 150 bp, untrimmed reads are discarded.
+
+Files are reformatted and samples are combined for a global analysis.
+
+Reads are dereplicated (only unique sequences are retained) using VSEARCH v2.13.6 from bioconda (Rognes et al., 2016).
+
+Denoised exact sequence variants (ESVs) are generated using USEARCH v11.0.667 with the unoise3 algorithm (Edgar, 2016).  This step removes any PhiX contamination, putative chimeric sequences, sequences with predicted errors, and rare sequences.  This step produces zero-radius OTUs (Zotus) also referred to commonly as amplicon sequence variants (ASVs), ESVs, or 100% operational taxonomic unit (OTU) clusters.  Here, we define rare sequences to be sequence clusters containing only one or two reads (singletons and doubletons) and these are removed as 'noise'.
+
+An ESV table that tracks read number for each ESV in each sample is generated with VSEARCH.
+
+18S taxonomic assignments are made using the Ribosomal Database classifier (RDP classifier) (Wang et al., 2007) using a reference dataset trained on 18S sequences obtained from SILVA 132 SSU Ref Nr99 (Preusse et al., 2007) and is available from https://github.com/terrimporter/18SClassifier .  **Note that the SILVA reference set was modified to remove taxa with inconsistent taxonomic lineages.**
+
+The final output is reformatted to add read numbers for each sample and column headers to improve readability.
+
+### Prepare your environment to run the pipeline
+
 1. This pipeline includes a conda environment that provides most of the programs needed to run this pipeline (SNAKEMAKE, SEQPREP, CUTADAPT, VSEARCH, etc.).
 
 ```linux
@@ -66,10 +90,18 @@ mkdir data
 #!/path/to/miniconda3/envs/myenv/bin/perl
 ```
 
-7. Run snakemake by indicating the number of jobs or cores that are available to run the whole pipeline.  
+### Run the standard pipeline
+
+Run snakemake by indicating the number of jobs or cores that are available to run the whole pipeline.  
 
 ```linux
 snakemake --jobs 24 --snakefile snakefile --configfile config.yaml
+```
+
+When you are done, deactivate the conda environment
+
+```linux
+conda deactivate
 ```
 
 ## Alternate pipeline
