@@ -82,7 +82,9 @@ snakemake --jobs 24 --snakefile snakefile --configfile config.yaml
 
 ## Alternate pipeline
 
-This section describes modification to the standard pipeline described above when you get a message from 32-bit USEARCH that you have exceeded memory availble.  Instead of processing all the reads in one go, you can denoise each run on its own to keep file sizes small.
+This section describes modification to the standard pipeline described above when you get a message from 32-bit USEARCH that you have exceeded memory availble.  Instead of processing all the reads in one go, you can denoise each run on its own to keep file sizes small.  See image below: 1) The usual bioinformatic pipeline described in detail above, 2) Modified pipeline to process reads by run to keep memory usage during denoising down.
+
+![](images/BioinformaticOverview_100.png)
 
 1. Instead of putting all raw read files in a directory called 'data'.  Put them in their own directories according to run, ex. run1.  Edit the 'dir' variable in the config.yaml file as follows:
 
