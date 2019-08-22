@@ -154,9 +154,9 @@ snakemake --jobs 24 --snakefile snakefile --configfile config.yaml
 
 ## Implementation notes
 
-### Installing conda
+### Installing Conda and Snakemake
 
-Conda is an open source package and envirobnment management system.  Miniconda is a lightweight version of conda that only contains conda, python, and their dependencies.  Using conda and the environment.yml file provided here can help get all the necessary programs in one place to run this pipeline.  Snakemake is a Python-based workflow management tool meant to define the rules for running this bioinformatic pipeline.  There is no need to edit the snakefile or snakefile_alt files directly.  Changes to select parameters can be made in the config.yml pipeline.  If you install conda and activate the myenv environment provided, then you will also get the correct versions of most programs including Snakemake v3.13.3.
+Conda is an open source package and envirobnment management system.  Miniconda is a lightweight version of conda that only contains conda, python, and their dependencies.  Using conda and the environment.yml file provided here can help get all the necessary programs in one place to run this pipeline.  Snakemake is a Python-based workflow management tool meant to define the rules for running this bioinformatic pipeline.  There is no need to edit the snakefile or snakefile_alt files directly.  Changes to select parameters can be made in the config.yaml pipeline.  If you install Conda and activate the environment provided, then you will also get the correct versions of the open source programs used in this pipeline including Snakemake v3.13.3.
 
 Install miniconda as follows:
 
