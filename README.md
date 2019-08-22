@@ -22,7 +22,7 @@ This data flow has been developed using a conda environment and snakemake pipeli
 
 If you are comfortable reading code, read through the snakefile to see how the pipeline runs, and which programs and versions are used.
 
-Here is a brief overview:
+#### A brief overview:
 
 Raw paired-end reads are merged using SEQPREP v1.3.2 from bioconda (St. John, 2016).  This step looks for a minimum Phred quality score of 20 in the overlap region, requires at least 25bp overlap.
 
@@ -36,7 +36,7 @@ Denoised exact sequence variants (ESVs) are generated using USEARCH v11.0.667 wi
 
 An ESV table that tracks read number for each ESV in each sample is generated with VSEARCH.
 
-18S taxonomic assignments are made using the Ribosomal Database classifier (RDP classifier) (Wang et al., 2007) using a reference dataset trained on 18S sequences obtained from SILVA 132 SSU Ref Nr99 (Preusse et al., 2007) and is available from https://github.com/terrimporter/18SClassifier .  **Note that the SILVA reference set was modified to remove taxa with inconsistent taxonomic lineages.**
+18S taxonomic assignments are made using the Ribosomal Database classifier v2.12 (RDP classifier) available from https://sourceforge.net/projects/rdp-classifier/ (Wang et al., 2007) using a reference dataset trained on 18S sequences obtained from SILVA 132 SSU Ref Nr99 (Preusse et al., 2007) available from https://github.com/terrimporter/18SClassifier .  **Note that the SILVA reference set was modified to remove taxa with inconsistent taxonomic lineages.**
 
 The final output is reformatted to add read numbers for each sample and column headers to improve readability.
 
