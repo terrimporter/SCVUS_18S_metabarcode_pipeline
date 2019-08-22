@@ -117,6 +117,24 @@ snakemake --jobs 24 --snakefile snakefile --configfile config.yaml
 
 ## Implementation notes
 
+### Installing conda
+
+Conda is an open source package and envirobnment management system.  Miniconda is a lightweight version of conda that only contains conda, python, and their dependencies.  Using conda can help get all the necessary programs in one place to run the snakemake pipeline.
+
+Install miniconda as follows:
+
+```linux
+# Download miniconda3
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
+# Install miniconda3
+sh Miniconda3-latest-Linux-x86_64.sh
+
+# Add conda to your PATH, ex. to ~/bin
+cd ~/bin
+ln -s miniconda3/bin/conda conda
+```
+
 ### Batch renaming of files
 
 Sometimes it is necessary to rename large numbers of sequence files.  I prefer to use Perl-rename (Gergely, 2018) that is available at https://github.com/subogero/rename as opposed to linux rename.  I prefer the Perl implementation so that you can easily use regular expressions.  I first run the command with the -n flag so you can review the changes without making any actual changes.  If you're happy with the results, re-run without the -n flag.
