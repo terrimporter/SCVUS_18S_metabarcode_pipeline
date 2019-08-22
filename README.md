@@ -18,7 +18,7 @@ This data flow has been developed using a conda environment and snakemake pipeli
 
 ## Standard pipeline
 
-This pipeline includes a conda environment that provides most of the programs needed to run this pipeline (SNAKEMAKE, SEQPREP, CUTADAPT, VSEARCH, etc.).
+1. This pipeline includes a conda environment that provides most of the programs needed to run this pipeline (SNAKEMAKE, SEQPREP, CUTADAPT, VSEARCH, etc.).
 
 ```linux
 # Create the environment from the provided environment.yml file
@@ -27,7 +27,7 @@ conda env create -f environment.yml
 # Activate the environment
 conda activate myenv
 ```
-The pipeline requires commercial software for the denoising step.  A free 32-bit version of USEARCH v11.0.667 can be obtained from https://drive5.com/usearch/download.html .  Be sure to put the program in your PATH, ex. ~/bin .  Make it executable and rename it to simply usearch11.
+2. The pipeline requires commercial software for the denoising step.  A free 32-bit version of USEARCH v11.0.667 can be obtained from https://drive5.com/usearch/download.html .  Be sure to put the program in your PATH, ex. ~/bin .  Make it executable and rename it to simply usearch11.
 
 ```linux
 mv usearch11.0.667_i86linux32 ~/bin/.
@@ -36,7 +36,7 @@ chmod 755 usearch11.0.667_i86linux32
 mv usearch11.0.667_i86linux32 usearch11
 ```
 
-The pipeline also requires the RDP classifier for the taxonomic assignment step.  Although the RDP classifier v2.2 is available through conda, a newer v2.12 is available form SourceForge at https://sourceforge.net/projects/rdp-classifier/ .  Download it and take note of where the classifier.jar file is as this needs to be added to config.yaml .
+3. The pipeline also requires the RDP classifier for the taxonomic assignment step.  Although the RDP classifier v2.2 is available through conda, a newer v2.12 is available form SourceForge at https://sourceforge.net/projects/rdp-classifier/ .  Download it and take note of where the classifier.jar file is as this needs to be added to config.yaml .
 
 The RDP classifier comes with the training sets to classify 16S, fungal ITS and fungal LSU rDNA sequences.  To classify 18S sequences, obtain the training set from GitHub 
 https://github.com/terrimporter/18SClassifier .  Take note of where the rRNAclassifier.properties file is as this needs to be added to the config.yaml .
@@ -55,16 +55,16 @@ RDP:
     t: "/path/to/18S_Eukaryota/v3.2/mydata/mydata_trained/rRNAClassifier.properties"
 ```
 
-In most cases, your raw paired-end Illumina reads can go into a directory called 'data' which should be placed in the same directory as the other files that come with this pipeline.
+4. In most cases, your raw paired-end Illumina reads can go into a directory called 'data' which should be placed in the same directory as the other files that come with this pipeline.
 
 ```linux
 # Create a new directory to hold your raw data
 mkdir data
 ```
 
-Please go through the config.yaml file and edit directory names, filename patterns, etc. as necessary to work with your filenames.
+5. Please go through the config.yaml file and edit directory names, filename patterns, etc. as necessary to work with your filenames.
 
-Be sure to edit the first line of each Perl script (shebang) in the perl_scripts directory to point to where Perl is installed.
+6. Be sure to edit the first line of each Perl script (shebang) in the perl_scripts directory to point to where Perl is installed.
 
 ```linux
 # The usual shebang if you already have Perl installed
@@ -74,7 +74,7 @@ Be sure to edit the first line of each Perl script (shebang) in the perl_scripts
 #!/path/to/miniconda3/envs/myenv/bin/perl
 ```
 
-Run snakemake by indicating the number of jobs or cores that are available to run the whole pipeline.  
+7. Run snakemake by indicating the number of jobs or cores that are available to run the whole pipeline.  
 
 ```linux
 snakemake --jobs 24 --snakefile snakefile --configfile config.yaml
@@ -82,9 +82,7 @@ snakemake --jobs 24 --snakefile snakefile --configfile config.yaml
 
 ## Alternate pipeline
 
-This section describes modification to the standard pipeline described above when you get a message from 32-bit USEARCH that you have exceeded memory availble.  Instead of processing all the reads in one go, you can denoise each run on its own to keep file sizes small.  See image below: 1) The usual bioinformatic pipeline described in detail above, 2) Modified pipeline to process reads by run to keep memory usage during denoising down.
-
-![](images/BioinformaticOverview_100.png)
+This section describes modification to the standard pipeline described above when you get a message from 32-bit USEARCH that you have exceeded memory availble.  Instead of processing all the reads in one go, you can denoise each run on its own to keep file sizes small.
 
 1. Instead of putting all raw read files in a directory called 'data'.  Put them in their own directories according to run, ex. run1.  Edit the 'dir' variable in the config.yaml file as follows:
 
