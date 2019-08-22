@@ -36,7 +36,7 @@ Denoised exact sequence variants (ESVs) are generated using USEARCH v11.0.667 wi
 
 An ESV table that tracks read number for each ESV in each sample is generated with VSEARCH.
 
-18S taxonomic assignments are made using the Ribosomal Database classifier v2.12 (RDP classifier) available from https://sourceforge.net/projects/rdp-classifier/ (Wang et al., 2007) using a reference dataset trained on 18S sequences obtained from SILVA 132 SSU Ref Nr99 (Preusse et al., 2007) available from https://github.com/terrimporter/18SClassifier .  **Note that the SILVA reference set was modified to remove taxa with inconsistent taxonomic lineages.**
+18S taxonomic assignments are made using the Ribosomal Database classifier v2.12 (RDP classifier) available from https://sourceforge.net/projects/rdp-classifier/ (Wang et al., 2007) using the 18S classifier v3.2 reference dataset trained on sequences obtained from SILVA 132 SSU Ref Nr99 (Preusse et al., 2007) available from https://github.com/terrimporter/18SClassifier .  **Note that the SILVA reference set was modified to remove taxa with inconsistent taxonomic lineages.**
 
 The final output is reformatted to add read numbers for each sample and column headers to improve readability.
 
@@ -156,7 +156,7 @@ snakemake --jobs 24 --snakefile snakefile --configfile config.yaml
 
 ### Installing conda
 
-Conda is an open source package and envirobnment management system.  Miniconda is a lightweight version of conda that only contains conda, python, and their dependencies.  Using conda can help get all the necessary programs in one place to run the snakemake pipeline.
+Conda is an open source package and envirobnment management system.  Miniconda is a lightweight version of conda that only contains conda, python, and their dependencies.  Using conda and the environment.yml file provided here can help get all the necessary programs in one place to run this pipeline.  Snakemake is a Python-based workflow management tool meant to define the rules for running this bioinformatic pipeline.  There is no need to edit the snakefile or snakefile_alt files directly.  Changes to select parameters can be made in the config.yml pipeline.  If you install conda and activate the myenv environment provided, then you will also get the correct versions of most programs including Snakemake v3.13.3.
 
 Install miniconda as follows:
 
