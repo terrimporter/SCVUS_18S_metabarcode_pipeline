@@ -42,14 +42,6 @@ The RDP classifier comes with the training sets to classify 16S, fungal ITS and 
 https://github.com/terrimporter/18SClassifier .  Take note of where the rRNAclassifier.properties file is as this needs to be added to the config.yaml .
 
 ```linux
-############################################################################
-# Taxonomic assignment
-############################################################################
-
-# Uses the RDP classifier
-# Do not use old RDP classifier v2.2 from conda, install the newer v2.12 from SourceForge https://sourceforge.net/projects/rdp-classifier/
-# 18S Classifier v3.2 based on SILVA but compatible with RDP classifier available from GitHub https://github.com/terrimporter/18SClassifier
-
 RDP:
     jar: "/path/to/rdp_classifier_2.12/dist/classifier.jar"
     t: "/path/to/18S_Eukaryota/v3.2/mydata/mydata_trained/rRNAClassifier.properties"
