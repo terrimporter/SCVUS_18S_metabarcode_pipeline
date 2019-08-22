@@ -8,9 +8,12 @@ This data flow has been developed using a conda environment and snakemake pipeli
 
 ## Outline
 
-[Standard pipeline](#standard-pipeline)  
+[Standard pipeline](#standard-pipeline) 
+
 [Alternate pipeline](#alternate-pipeline)  
+
 [Implementation notes](#implementation-notes)  
+
 [References](#references)  
 
 ## Standard pipeline
@@ -60,6 +63,16 @@ mkdir data
 ```
 
 Please go through the config.yaml file and edit directory names, filename patterns, etc. as necessary to work with your filenames.
+
+Be sure to edit the first line of each Perl script (shebang) in the perl_scripts directory to point to where Perl is installed.
+
+```linux
+# The usual shebang if you already have Perl installed
+#!/usr/bin/perl
+
+# Alternate shebang if you want to run perl using the conda environment (edit this)
+#!/path/to/miniconda3/envs/myenv/bin/perl
+```
 
 Run snakemake by indicating the number of jobs or cores that are available to run the whole pipeline.  
 
