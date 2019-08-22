@@ -40,6 +40,8 @@ An ESV table that tracks read number for each ESV in each sample is generated wi
 
 The final output is reformatted to add read numbers for each sample and column headers to improve readability.
 
+Read and ESV statistics are provided for various steps of the program are also provided.
+
 ### Prepare your environment to run the pipeline
 
 1. This pipeline includes a conda environment that provides most of the programs needed to run this pipeline (SNAKEMAKE, SEQPREP, CUTADAPT, VSEARCH, etc.).
@@ -96,6 +98,14 @@ Run snakemake by indicating the number of jobs or cores that are available to ru
 
 ```linux
 snakemake --jobs 24 --snakefile snakefile --configfile config.yaml
+```
+
+You can view read number and length (min, max, mean, median, mode) statistics for each sample at steps of the bioinformatic pipeline.  A simple report can be generated like so, modify to summarize reports for different bioinformatic steps (raw reads, paired reads, primer trimmed reads):
+
+```linux
+# Generate a report for raw R1 reads
+cd stats/raw/R1
+cat *.stats > R1.stats
 ```
 
 When you are done, deactivate the conda environment
