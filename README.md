@@ -15,7 +15,7 @@ This data flow has been developed using a conda environment and snakemake pipeli
 
 ## Standard pipeline
 
-This pipeline uses programs that can be installed using conda (SEQPREP, CUTADAPT, VSEARCH, etc.).
+This pipeline includes a conda environment that provides most of the programs needed to run this pipeline (SNAKEMAKE, SEQPREP, CUTADAPT, VSEARCH, etc.).
 
 ```linux
 # Create the environment from the provided environment.yml file
