@@ -143,8 +143,11 @@ snakemake --jobs 24 --snakefile snakefile_alt --configfile config.yaml
 6. Combine and dereplicate the denoised ESVs from each run and put them in a directory named after the amplicon, for example:
 
 ```linux
+# Make new directory
+mkdir 18Sv4
+
 # Combine the denoised ESVs from each run
-cat run1/cat.denoised run2/cat.denoised run3/cat.denoised > 18Sv4/cat.denoised.tmp
+cat run1_out/cat.denoised run2_out/cat.denoised run3_out/cat.denoised > 18Sv4/cat.denoised.tmp
 
 # Dereplicate the denoised ESVs
 vsearch --derep_fulllength 18Sv4/cat.denoised.tmp --output 18Sv4/cat.denoised --sizein --sizeout
