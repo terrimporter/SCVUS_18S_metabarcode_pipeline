@@ -132,7 +132,7 @@ dir: "run1_out"
 
 3. Please go through the config.yaml file and edit directory names, filename patterns, etc. as necessary to work with your filenames.
 
-4. Run snakemake with the alternate snakefile as follows, be sure to indicate the number of jobs/cores available to run the whole pipeline.
+4. Run snakemake with the first alternate snakefile as follows, be sure to indicate the number of jobs/cores available to run the whole pipeline.
 
 ```linux
 snakemake --jobs 24 --snakefile snakefile_alt_1 --configfile config.yaml
@@ -149,11 +149,15 @@ mkdir 18Sv4
 # Combine the denoised ESVs from each run
 cat run1_out/cat.denoised run2_out/cat.denoised run3_out/cat.denoised > 18Sv4/cat.denoised.tmp
 
-# Combine the primer trimmed reads from each run
-cat run1_out/cat.fasta2.gz run2_out/cat.fasta2.gz run3_out/cat.fasta2.gz > 18Sv4/cat.fasta2.gz
-
 # Dereplicate the denoised ESVs
 vsearch --derep_fulllength 18Sv4/cat.denoised.tmp --output 18Sv4/cat.denoised --sizein --sizeout --log 18Sv4/derep.log
+```
+
+7. Combine the primer trimmed reads frmo each run and put them in a directory named after the amplicon, for example:
+
+```linux
+# Combine the primer trimmed reads from each run
+cat run1_out/cat.fasta2.gz run2_out/cat.fasta2.gz run3_out/cat.fasta2.gz > 18Sv4/cat.fasta2.gz
 ```
 
 7. Edit the config.yaml 'dir' variable:
@@ -162,7 +166,7 @@ vsearch --derep_fulllength 18Sv4/cat.denoised.tmp --output 18Sv4/cat.denoised --
 dir: "18Sv4"
 ```
 
-8. Continue with the standard snakelake pipeline, be sure to edit the number of jobs/cores available to run the whole pipeline.
+8. Continue with the second alternate snakelake pipeline, be sure to edit the number of jobs/cores available to run the whole pipeline.
 
 ```linux
 snakemake --jobs 24 --snakefile snakefile_alt_2 --configfile config.yaml
