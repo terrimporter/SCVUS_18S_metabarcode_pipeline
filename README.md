@@ -149,8 +149,11 @@ mkdir 18Sv4
 # Combine the denoised ESVs from each run
 cat run1_out/cat.denoised run2_out/cat.denoised run3_out/cat.denoised > 18Sv4/cat.denoised.tmp
 
+# Combine the primer trimmed reads from each run
+cat run1_out/cat.fasta2.gz run2_out/cat.fasta2.gz run3_out/cat.fasta2.gz > 18Sv4/cat.fasta2.gz
+
 # Dereplicate the denoised ESVs
-vsearch --derep_fulllength 18Sv4/cat.denoised.tmp --output 18Sv4/cat.denoised --sizein --sizeout
+vsearch --derep_fulllength 18Sv4/cat.denoised.tmp --output 18Sv4/cat.denoised --sizein --sizeout --log 18Sv4/derep.log
 ```
 
 7. Edit the config.yaml 'dir' variable:
