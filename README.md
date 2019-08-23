@@ -108,7 +108,7 @@ cd stats/raw/R1
 cat *.stats > R1.stats
 ```
 
-When you are done, deactivate the conda environment
+When you are done, deactivate the conda environment:
 
 ```linux
 conda deactivate
@@ -170,6 +170,12 @@ dir: "18Sv4"
 
 ```linux
 snakemake --jobs 24 --snakefile snakefile_alt_2 --configfile config.yaml
+```
+
+9. When you are done, deactivate the conda environment:
+
+```linux
+conda deactivate
 ```
 
 ## Implementation notes
