@@ -118,24 +118,24 @@ conda deactivate
 
 This section describes modification to the standard pipeline described above when you get a message from 32-bit USEARCH that you have exceeded memory availble.  Instead of processing all the reads in one go, you can denoise each run on its own to keep file sizes small.
 
-1. Instead of putting all raw read files in a directory called 'data'.  Put them in their own directories according to run, ex. run1.  Edit the 'dir' variable in the config.yaml file as follows:
+1. Instead of putting all raw read files in a directory called 'data', put them in their own directories according to run, ex. run1.  Edit the 'dir' variable in the config_alt.yaml file as follows:
 
 ```linux
 raw: "run1"
 ```
 
-2. The output directory also needs to be edited in the config.yaml file:
+2. The output directory also needs to be edited in the config_alt.yaml file:
 
 ```linux
 dir: "run1_out"
 ```
 
-3. Please go through the config.yaml file and edit directory names, filename patterns, etc. as necessary to work with your filenames.
+3. Please go through the config_alt.yaml file and edit directory names, filename patterns, etc. as necessary to work with your filenames.
 
 4. Run snakemake with the first alternate snakefile as follows, be sure to indicate the number of jobs/cores available to run the whole pipeline.
 
 ```linux
-snakemake --jobs 24 --snakefile snakefile_alt_1 --configfile config.yaml
+snakemake --jobs 24 --snakefile snakefile_alt_1 --configfile config_alt.yaml
 ```
 
 5. Run steps 1-4 for each run directory, ex. run1, run2, run3, etc.
