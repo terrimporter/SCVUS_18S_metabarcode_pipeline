@@ -135,7 +135,7 @@ dir: "run1_out"
 4. Run snakemake with the alternate snakefile as follows, be sure to indicate the number of jobs/cores available to run the whole pipeline.
 
 ```linux
-snakemake --jobs 24 --snakefile snakefile_alt --configfile config.yaml
+snakemake --jobs 24 --snakefile snakefile_alt_1 --configfile config.yaml
 ```
 
 5. Run steps 1-4 for each run directory, ex. run1, run2, run3, etc.
@@ -165,7 +165,7 @@ dir: "18Sv4"
 8. Continue with the standard snakelake pipeline, be sure to edit the number of jobs/cores available to run the whole pipeline.
 
 ```linux
-snakemake --jobs 24 --snakefile snakefile --configfile config.yaml
+snakemake --jobs 24 --snakefile snakefile_alt_2 --configfile config.yaml
 ```
 
 ## Implementation notes
