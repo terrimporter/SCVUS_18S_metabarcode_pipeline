@@ -16,6 +16,8 @@ This data flow has been developed using a conda environment and snakemake pipeli
 
 [References](#references)  
 
+[Acknowledgements](#acknowledgements)  
+
 ## Standard pipeline
 
 ### Overview of the standard pipeline
@@ -118,19 +120,19 @@ conda deactivate
 
 This section describes modification to the standard pipeline described above when you get a message from 32-bit USEARCH that you have exceeded memory availble.  Instead of processing all the reads in one go, you can denoise each run on its own to keep file sizes small.
 
-1. Instead of putting all raw read files in a directory called 'data', put them in their own directories according to run, ex. run1.  Edit the 'dir' variable in the config_alt.yaml file as follows:
+1. Instead of putting all raw read files in a directory called 'data', put them in their own directories according to run, ex. run1.  Edit the 'dir' variable in the config_alt_1.yaml file as follows:
 
 ```linux
 raw: "run1"
 ```
 
-2. The output directory also needs to be edited in the config_alt.yaml file:
+2. The output directory also needs to be edited in the config_alt_1.yaml file:
 
 ```linux
 dir: "run1_out"
 ```
 
-3. Please go through the config_alt.yaml file and edit directory names, filename patterns, etc. as necessary to work with your filenames.
+3. Please go through the config_alt_1.yaml file and edit directory names, filename patterns, etc. as necessary to work with your filenames.
 
 4. Run snakemake with the first alternate snakefile as follows, be sure to indicate the number of jobs/cores available to run the whole pipeline.
 
@@ -237,4 +239,4 @@ Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Cl
 
 I would like to acknowedge funding from the Canadian government through the Genomics Research and Development Initiative (GRDI) EcoBiomics project.
 
-Last updated: August 22, 2019
+Last updated: September 4, 2019
