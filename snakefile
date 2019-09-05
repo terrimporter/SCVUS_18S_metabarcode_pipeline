@@ -307,7 +307,7 @@ rule denoise:
 		usearch_out
 	log: usearch_log
 	shell:
-		"usearch11 -unoise3 {input} -zotus {output} -minsize {config[USEARCH][minsize]} > {log}"
+		"usearch11 -unoise3 {input} -zotus {output} -minsize {config[USEARCH][minsize]} > {log} 2>&1"
 	
 #######################################################################
 # Create ESV table
