@@ -72,13 +72,6 @@ rdp_out=dir+"/rdp.out"
 rdp_csv=dir+"/rdp.csv"
 rdp_csv2=dir+"/rdp.csv2"
 
-# Calculate stats
-raw1_out=dir+"/stats/raw1.stats"
-raw2_out=dir+"/stats/raw2.stats"
-paired_out=dir+"/stats/paired.stats"
-ftrimmed_out=dir+"/stats/Ftrimmed.stats"
-rtrimmed_out=dir+"/stats/Rtrimmed.stats"
-
 #######################################################################
 # This rule defines the final target file that is needed from the pipeline
 # This is normally step 7 (rdp_csv2) but could also be step 5 (usearch_out)
