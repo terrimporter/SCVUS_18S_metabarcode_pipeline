@@ -96,8 +96,8 @@ USEARCH:
 # 18S Classifier v3.2 based on SILVA but compatible with RDP classifier available from GitHub https://github.com/terrimporter/18SClassifier
 
 RDP:
-    jar: "/path/to/rdp_classifier_2.12/dist/classifier.jar"
-    t: "/path/to/18S_Eukaryota/v3.2/mydata/mydata_trained/rRNAClassifier.properties"
+    jar: "/home/terri/rdp_classifier_2.12/dist/classifier.jar"
+    t: "/home/terri/18S_Eukaryota/v3.2/mydata/mydata_trained/rRNAClassifier.properties"
 
 ############################################################################
 # Reformat CSV
