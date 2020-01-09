@@ -1,7 +1,7 @@
-# Configuration file for SCVUSv2 Part 1
+# Configuration file for SCVUSv3
 
 # Author: Teresita M. Porter
-# Date: Oct. 29, 2019
+# Date: Jan. 9, 2020
 
 ############################################################################
 # General pipeline settings
@@ -49,6 +49,8 @@ SEQPREP:
 ############################################################################
 
 # CUTADAPT parameters
+# TAReuk454FWD1 Eukaryote 18Sv4 forward primer (Stoeck et al., 2010)
+# TAReukREV3 Eukaryote 18Sv4 reverse primer (Stoeck et al., 2010)
 CUTADAPT_FWD:
     g: "CCAGCASCYGCGGTAATTCC"
     m: 150
@@ -70,13 +72,6 @@ CUTADAPT_REV:
 # For the standard pipeline, a good directory name would be the amplicon, ex. "18Sv4"
 dir: "18Sv4"
 
-# VSEARCH params
-VSEARCH:
-# Indicate number of threads to use
-# Do not exceed the number of jobs allotted to run the whole pipeline ('jobs' above)
-    t: 24
-
-
 ############################################################################
 # Denoising
 ############################################################################
@@ -84,8 +79,18 @@ VSEARCH:
 # Indicate minimum number of reads per cluster to retain
 # Here, remove all singletons and doubletons, retain clusters with 3+ reads
 
-USEARCH:
+VSEARCH_DENOISE:
     minsize: 3
+
+############################################################################
+# ESV x sample table
+############################################################################
+
+# VSEARCH params
+VSEARCH_TABLE:
+# Indicate number of threads to use
+# Do not exceed the number of jobs allotted to run the whole pipeline ('jobs' above)
+    t: 24
 
 ############################################################################
 # Taxonomic assignment
@@ -96,8 +101,8 @@ USEARCH:
 # 18S Classifier v3.2 based on SILVA but compatible with RDP classifier available from GitHub https://github.com/terrimporter/18SClassifier
 
 RDP:
-    jar: "/path/to/rdp_classifier_2.12/dist/classifier.jar"
-    t: "/path/to/18S_Eukaryota/v3.2/mydata/mydata_trained/rRNAClassifier.properties"
+    jar: "/home/terri/rdp_classifier_2.12/dist/classifier.jar"
+    t: "/home/terri/18S_Eukaryota/v3.2/mydata/mydata_trained/rRNAClassifier.properties"
 
 ############################################################################
 # Reformat CSV
