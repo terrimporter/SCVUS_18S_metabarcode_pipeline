@@ -90,14 +90,6 @@ Run snakemake by indicating the number of jobs or cores that are available to ru
 snakemake --jobs 24 --snakefile snakefile --configfile config.yaml
 ```
 
-You can view read number and length (min, max, mean, median, mode) statistics for each sample at steps of the bioinformatic pipeline.  A simple report can be generated like so, modify to summarize reports for different bioinformatic steps (raw reads, paired reads, primer trimmed reads):
-
-```linux
-# Generate a report for raw R1 reads
-cd stats/raw/R1
-cat *.stats > R1.stats
-```
-
 When you are done, deactivate the conda environment:
 
 ```linux
@@ -123,6 +115,35 @@ sh Miniconda3-latest-Linux-x86_64.sh
 cd ~/bin
 ln -s miniconda3/bin/conda conda
 ```
+
+### Check program versions
+
+Ensure that the correct programs from the environment are being used.
+
+```linux
+# create conda environment from file
+conda env create -f environment.yml
+
+# activate the environment
+conda activate myenv
+
+# list all programs available in the environment at once
+conda list > programs.list
+
+# or, inidivdually check that key programs in the conda environment are being used
+which SeqPrep
+which cutadapt
+which vsearch
+which perl
+
+# then, check their version numbers one at a time
+cutadapt --version
+vsearch --version
+```
+
+Version numbers are also tracked in the snakefile.
+
+Note that commercial software (ex. USEARCH) and programs not available from conda need to be installed on your system and executable in your PATH (see [Standard pipeline](#standard-pipeline) "Prepare your environment to run the pipeline").
 
 ### Batch renaming of files
 
