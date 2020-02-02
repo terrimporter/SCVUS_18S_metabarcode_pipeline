@@ -81,7 +81,7 @@ mkdir data
 #!/usr/bin/perl
 
 # Alternate shebang if you want to run perl using the conda environment (edit this)
-#!/path/to/miniconda3/envs/myenv/bin/perl
+#!/path/to/miniconda3/envs/myenv.3/bin/perl
 ```
 
 ### Run the pipeline
