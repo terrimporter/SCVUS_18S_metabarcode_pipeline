@@ -10,7 +10,7 @@ This data flow will be updated on a regular basis so check for the latest versio
 
 ## Outline
 
-[Standard pipeline](#standard-pipeline) 
+[Pipeline details](#pipeline-details)  
 
 [Implementation notes](#implementation-notes)  
 
