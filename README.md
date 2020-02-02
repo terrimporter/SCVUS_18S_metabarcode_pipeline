@@ -10,7 +10,9 @@ This data flow will be updated on a regular basis so check for the latest versio
 
 ## Outline
 
-[Pipeline details](#pipeline-details)  
+[Pipeline description](#pipeline-description)  
+
+[Prepare your environment to run the pipeline](#prepare-your-environment-to-run-the-pipeline)
 
 [Implementation notes](#implementation-notes)  
 
@@ -18,7 +20,7 @@ This data flow will be updated on a regular basis so check for the latest versio
 
 [Acknowledgements](#acknowledgements)  
 
-## Pipeline details
+## Pipeline description
 
 If you are comfortable reading code, read through the snakefile to see how the pipeline runs as well as which programs and versions are used.  Otherwise you can just list all the programs in the conda environment, see [Implementation notes](#implementation-notes).  
 
@@ -34,13 +36,13 @@ Denoised exact sequence variants (ESVs) are generated using VSEARCH with the uno
 
 An ESV table that tracks read number for each ESV in each sample is generated with VSEARCH.
 
-18S taxonomic assignments are made using the Ribosomal Database classifier v2.12 (RDP classifier) available from https://sourceforge.net/projects/rdp-classifier/ (Wang et al., 2007) using the 18S classifier v3.2 reference dataset trained on sequences obtained from SILVA 132 SSU Ref Nr99 (Preusse et al., 2007) available from https://github.com/terrimporter/18SClassifier .  **Note that the SILVA reference set was modified to remove taxa with inconsistent taxonomic lineages.**
+18S taxonomic assignments are made using the Ribosomal Database classifier v2.12 (RDP classifier) available from https://sourceforge.net/projects/rdp-classifier/ (Wang et al., 2007) using the 18S classifier v4.0 reference dataset trained on sequences obtained from SILVA 138 SSU Ref Nr99 (Preusse et al., 2007) available from https://github.com/terrimporter/18SClassifier .  **Note that the SILVA reference set was modified to remove sequences without a SILVA assignment at the genus rank.**
 
 The final output is reformatted to add read numbers for each sample and column headers to improve readability.
 
 Read and ESV statistics are provided for various steps of the program are also provided.
 
-### Prepare your environment to run the pipeline
+## Prepare your environment to run the pipeline
 
 1. This pipeline includes a conda environment that provides most of the programs needed to run this pipeline (SNAKEMAKE, SEQPREP, CUTADAPT, VSEARCH, etc.).
 
@@ -60,7 +62,7 @@ https://github.com/terrimporter/18SClassifier .  Take note of where the rRNAclas
 ```linux
 RDP:
     jar: "/path/to/rdp_classifier_2.12/dist/classifier.jar"
-    t: "/path/to/18S_Eukaryota/v3.2/mydata/mydata_trained/rRNAClassifier.properties"
+    t: "/path/to/18S_Eukaryota/v4.0/mydata/mydata_trained/rRNAClassifier.properties"
 ```
 
 3. In most cases, your raw paired-end Illumina reads can go into a directory called 'data' which should be placed in the same directory as the other files that come with this pipeline.
@@ -125,7 +127,7 @@ Ensure that the correct programs from the environment are being used.
 conda env create -f environment.yml
 
 # activate the environment
-conda activate myenv
+conda activate myenv.3
 
 # list all programs available in the environment at once
 conda list > programs.list
@@ -182,6 +184,6 @@ Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Cl
 
 ## Acknowledgements
 
-I would like to acknowedge funding from the Canadian government through the Genomics Research and Development Initiative (GRDI) EcoBiomics project.
+I would like to acknowedge funding from the Canadian government through the Genomics Research and Development Initiative (GRDI) Metagenomics-based ecosystem biomonitoring (Ecobiomics) project.
 
-Last updated: January 9, 2020
+Last updated: February 2, 2020
