@@ -1,7 +1,7 @@
 # Configuration file for SCVUSv3
 
 # Author: Teresita M. Porter
-# Date: February, 2, 2020
+# Date: February, 24, 2020
 
 ############################################################################
 # How to run:
@@ -103,6 +103,7 @@ VSEARCH_TABLE:
 # Uses the RDP classifier
 # Do not use old RDP classifier v2.2 from conda, install the newer v2.12 from SourceForge https://sourceforge.net/projects/rdp-classifier/
 # 18S Classifier v3.2 based on SILVA but compatible with RDP classifier available from GitHub https://github.com/terrimporter/18SClassifier
+# nuclear-encoded 18S diatom Classifier v1 based on curated barcode sequences from the INRA (Rimet et al., 2016) is available from GitHub https://github.com/terrimporter/SSUdiatomClassifier 
 
 RDP:
     jar: "/path/to/rdp_classifier_2.12/dist/classifier.jar"
