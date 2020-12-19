@@ -38,7 +38,7 @@ Denoised exact sequence variants (ESVs) are generated using VSEARCH with the uno
 
 An ESV table that tracks read number for each ESV in each sample is generated with VSEARCH.  The command --search_exact is used because it is faster than --usearch_global with --id 1.0 and optimized for finding exact matches.
 
-18S taxonomic assignments are made using the Ribosomal Database classifier v2.12 (RDP classifier) available from https://sourceforge.net/projects/rdp-classifier/ (Wang et al., 2007) using the 18S classifier v4.0 reference dataset trained on sequences obtained from SILVA 138 SSU Ref Nr99 (Preusse et al., 2007) available from https://github.com/terrimporter/18SClassifier .  **Note that the SILVA reference set was modified to remove sequences without a SILVA assignment at the genus rank.**
+18S taxonomic assignments are made using the Ribosomal Database classifier v2.12 (RDP classifier) available from https://sourceforge.net/projects/rdp-classifier/ (Wang et al., 2007) using the 18S classifier v4.1 reference dataset trained on sequences obtained from SILVA 138 SSU Ref Nr99 (Preusse et al., 2007) available from https://github.com/terrimporter/18SClassifier .  **Note that the SILVA reference set was modified to remove sequences without a SILVA assignment at the genus rank.**
 
 The final output, rdp.csv, is reformatted to add read numbers for each sample and column headers to improve readability.  This file contains read counts for each ESV for each sample as well as taxonomic assignments with bootstrap support values.  rdp.csv can be read into R, filtered, reformatted, and reshaped to create an ESV x sample table filled with read counts for standard biodiversity analyses.
 
@@ -62,7 +62,7 @@ https://github.com/terrimporter/18SClassifier .  Take note of where the rRNAclas
 ```linux
 RDP:
     jar: "/path/to/rdp_classifier_2.12/dist/classifier.jar"
-    t: "/path/to/18S_Eukaryota/v4.0/mydata/mydata_trained/rRNAClassifier.properties"
+    t: "/path/to/18S_Eukaryota/v4.1/mydata/mydata_trained/rRNAClassifier.properties"
 ```
 
 3. In most cases, your raw paired-end Illumina reads can go into a directory called 'data' which should be placed in the same directory as the other files that come with this pipeline.
@@ -186,4 +186,4 @@ Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Cl
 
 I would like to acknowedge funding from the Canadian government through the Genomics Research and Development Initiative (GRDI) Metagenomics-based ecosystem biomonitoring (Ecobiomics) project.
 
-Last updated: July 16, 2020
+Last updated: December 18, 2020
