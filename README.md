@@ -1,5 +1,7 @@
 # README
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4741491.svg)](https://doi.org/10.5281/zenodo.4741491)  
+
 **This pipeline has been replaced with MetaWorks: A flexible, scalable bioinformatic pipeline for multi-marker biodiversity assessments available from https://github.com/terrimporter/MetaWorks**
 
 This repository outlines how 18S rDNA metabarcodes are processed by Teresita M. Porter. **SCVUS** refers to the programs, algorithms, and reference datasets used in this data flow: **S**EQPREP, **C**UTADAPT, **V**SEARCH, **U**SEARCH-UNOISE, **S**ILVA. 
@@ -13,6 +15,8 @@ This data flow will be updated on a regular basis so check for the latest versio
 ## Outline
 
 [Pipeline description](#pipeline-description)  
+
+[How to cite](#How-to-cite)   
 
 [Prepare your environment to run the pipeline](#prepare-your-environment-to-run-the-pipeline)
 
@@ -41,6 +45,11 @@ An ESV table that tracks read number for each ESV in each sample is generated wi
 18S taxonomic assignments are made using the Ribosomal Database classifier v2.12 (RDP classifier) available from https://sourceforge.net/projects/rdp-classifier/ (Wang et al., 2007) using the 18S classifier v4.1 reference dataset trained on sequences obtained from SILVA 138 SSU Ref Nr99 (Preusse et al., 2007) available from https://github.com/terrimporter/18SClassifier .  **Note that the SILVA reference set was modified to remove sequences without a SILVA assignment at the genus rank.**
 
 The final output, rdp.csv, is reformatted to add read numbers for each sample and column headers to improve readability.  This file contains read counts for each ESV for each sample as well as taxonomic assignments with bootstrap support values.  rdp.csv can be read into R, filtered, reformatted, and reshaped to create an ESV x sample table filled with read counts for standard biodiversity analyses.
+
+## How to cite  
+
+This repository can be cited directly:  
+SCVUS 18S metabarcode pipeline, DOI: 10.5281/zenodo.4741491  
 
 ## Prepare your environment to run the pipeline
 
@@ -186,4 +195,4 @@ Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Cl
 
 I would like to acknowedge funding from the Canadian government through the Genomics Research and Development Initiative (GRDI) Metagenomics-based ecosystem biomonitoring (Ecobiomics) project.
 
-Last updated: December 18, 2020
+Last updated: May 6, 2021
