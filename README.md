@@ -49,7 +49,7 @@ The final output, rdp.csv, is reformatted to add read numbers for each sample an
 ## How to cite  
 
 This repository can be cited directly:  
-SCVUS 18S metabarcode pipeline, DOI: 10.5281/zenodo.4741491  
+Teresita M. Porter. (2018, August 9). SCVUS 18S Metabarcode Pipeline (Version v3.1.3). Zenodo. http://doi.org/10.5281/zenodo.4741491   
 
 ## Prepare your environment to run the pipeline
 
